@@ -1,95 +1,89 @@
+/* eslint-disable radix */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
+import React, { useState, useContext } from 'react';
 import NumberFormat from 'react-number-format';
-// import { IMaskInput } from 'react-imask';
+import Input from '@mui/material/Input';
+import CheckIcon from '@mui/icons-material/Check';
+import simulateData from '../../../../helpers/simulateData/simulateData';
+import {
+  customTextField, SimulateButton, CleanFieldsButtons, SectionButton, SectionButtonSelected,
+} from './muiStyled/muiStyled';
+import Context from '../../../../Provider/Context';
 
 import * as S from './index.styles';
 
-const NumberFormatCustom = React.forwardRef((props, ref) => {
-  const { onChange, ...other } = props;
+const defaultCurrentOptions = {
+  Rendimento: { value: 'Bruto' },
+  'Tipos de indexação': { value: 'PÓS' },
 
-  return (
-    <NumberFormat
-      {...other}
-      getInputRef={ref}
-      onValueChange={(values) => {
-        onChange({
-          target: {
-            name: props.name,
-            value: values.value,
-          },
-        });
-      }}
-      thousandSeparator
-      isNumericString
-    />
-  );
-});
+};
 
 const InputsPanel = () => {
-  const [form, setForm] = useState([]);
-  const simulateData = [
-    {
-      title: 'Rendimento',
-      info: 'sapo',
-      inputText: ['Bruto', 'Líquido'],
-      fieldText: ['Aporte Inicial', 'Prazo (com cinco meses)', 'IPCA(ao ano)'],
-    },
-    {
-      title: 'Tipos de indexação',
-      info: 'queijin',
-      inputText: ['PRÉ', 'PÓS', 'FIXADO'],
-      fieldText: ['Aporte mensal', 'Rentabilidade', 'CDI(ao ano)'],
-    },
-  ];
+  const { form, handleChange, clearState } = useContext(Context);
+  const [currentOptions, setCurrentOptions] = useState(defaultCurrentOptions);
 
-  // const formButtons = ['']
+  const renderInputs = (e) => {
+    if (form[e].type === 'currency') {
+      return (
+        <NumberFormat
+          customInput={customTextField}
+          variant="outlined"
+          onChange={(event) => handleChange(event, e)}
+          autoComplete="off"
+          prefix="R$ "
+          thousandSeparator="."
+          decimalSeparator=","
+          decimalScale={2}
+          name={e}
+          className="fields"
+          value={form[e].value}
 
-  const handleChange = ({ target: { value, name } }) => {
-    return setForm({
-      ...form, [name]: value,
-    });
-  };
-
-  const CustomTextField = styled(TextField)({
-    width: '100%',
-  });
-
-  const checkValue = (e) => {
-    // if (form[e]) {
-    console.log('entrei', form[e]);
+        />
+      );
+    }
+    if (form[e].type === 'percentage') {
+      return (
+        <NumberFormat
+          className="fields"
+          customInput={customTextField}
+          variant="outlined"
+          onValueChange={(values) => handleChange(values, e)}
+          isAllowed={(values) => {
+            const { value } = values;
+            return Number(value) >= 0 && Number(value) <= 100;
+          }}
+          suffix="%"
+          decimalScale={form[e].value >= 100 ? 0 : 2}
+          decimalSeparator=","
+          value={form[e].value}
+        />
+      );
+    }
     return (
-      <TextField
-        id="input-with-icon-textfield"
-        name={e}
-        variant="standard"
-        sx={{ width: '100%' }}
-        onChange={handleChange}
-        value={form[e]}
-        InputProps={{
-          startAdornment: <InputAdornment position="start">R$</InputAdornment>,
-          inputComponent: NumberFormatCustom,
+      <Input
+        id="standard-read-only-input"
+        inputprops={{
+          readOnly: true,
         }}
+        value={`${form[e].value.toString().replace('.', ',')}%`}
+        readOnly
+        variant="standard"
+        sx={{ marginTop: '8px' }}
       />
     );
-    // }
-    // return (
-    //   <TextField
-    //     id="input-with-icon-textfield"
-    //     name={e}
-    //     variant="standard"
-    //     sx={{ width: '100%' }}
-    //     value={form[e]}
-    //     onChange={handleChange}
-    //   />
-    // );
   };
 
+  const handleClick = ({ target: { value, name } }) => {
+    console.log('entrei', value);
+    return setCurrentOptions((prevState) => ({
+      ...prevState,
+      [name]: {
+        ...prevState[name],
+        value,
+      },
+    }));
+  };
   const renderForms = () => {
     return simulateData.map((el, i) => {
       return (
@@ -98,19 +92,32 @@ const InputsPanel = () => {
             {el.title}
           </p>
           <S.ButtonsSection>
-            <div>
-              {el.inputText.map((e, index) => {
+            {el.inputText.map((e, index) => {
+              if (currentOptions[el.title].value === e) {
                 return (
-                  <button type="button" key={index}>{e}</button>
+                  <SectionButtonSelected
+                    variant="outlined"
+                    startIcon={<CheckIcon sx={{ color: 'white', fontSize: '17px', margin: 0 }} />}
+                    name={el.title}
+                    value={e}
+                    onClick={handleClick}
+                    key={index}
+                  >
+                    {e}
+
+                  </SectionButtonSelected>
                 );
-              })}
-            </div>
+              }
+              return (
+                <SectionButton variant="outlined" name={el.title} value={e} onClick={handleClick} key={index}>{e}</SectionButton>
+              );
+            })}
           </S.ButtonsSection>
           {el.fieldText.map((e, index) => {
             return (
               <S.Label htmlFor={index} key={index} display={form[e] ? 'flex' : 'none'}>
                 {e}
-                {checkValue(e)}
+                {renderInputs(e)}
               </S.Label>
             );
           })}
@@ -118,54 +125,27 @@ const InputsPanel = () => {
       );
     });
   };
-  const SimulateButton = styled(Button)({
-    '&:hover': {
-      backgroundColor: '#ffa500',
-    },
-    width: '45%',
-    color: 'black',
-    borderWidth: 'thin',
-    borderColor: 'black',
-    boxShadow: 'none',
-    borderStyle: 'solid',
-    background: 'none',
-  });
-
-  const CleanFieldsButtons = styled(Button)({
-    '&:hover': {
-      backgroundColor: 'red',
-    },
-    width: '45%',
-    color: 'black',
-    borderWidth: 'thin',
-    borderColor: 'black',
-    boxShadow: 'none',
-    borderStyle: 'solid',
-    background: 'none',
-  });
 
   return (
-    <div>
+    <div style={{ height: 'calc(100% - 37px)', width: '35%' }}>
       <h2>Simulador</h2>
-      <S.ContentDiv>
-        {renderForms()}
+      <S.ContentDiv style={{ marginBottom: '10px' }}>
+        { renderForms()}
       </S.ContentDiv>
       <S.ContentDiv>
         <CleanFieldsButtons
           variant="contained"
           size="large"
+          onClick={clearState}
         >
           <strong>Limpar campos</strong>
-
         </CleanFieldsButtons>
         <SimulateButton
           size="large"
           variant="contained"
-
         >
           <strong>Simular</strong>
         </SimulateButton>
-
       </S.ContentDiv>
     </div>
   );

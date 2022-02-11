@@ -8,9 +8,7 @@ const Home = () => {
       <S.MainDiv>
         <S.Title>Simulador de Investimentos</S.Title>
         <S.ContentDiv>
-          <div style={{ width: '40%' }}>
-            <InputsPanel />
-          </div>
+          <InputsPanel />
           <S.ContentColumn>
             <p>
               queijin

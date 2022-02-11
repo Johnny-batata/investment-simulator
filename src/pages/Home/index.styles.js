@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.main`
-  padding: 30px;
-  height: calc(100% - 60px);
+  padding: 35px;
+  height: calc(100% - 70px);
 `;
 
 export const Title = styled.h1`
@@ -10,6 +10,7 @@ export const Title = styled.h1`
   margin: 0;
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
 `;
 
 export const MainDiv = styled.div`
@@ -21,6 +22,7 @@ export const MainDiv = styled.div`
 
 export const ContentDiv = styled.div`
   display: flex;
+  height: calc(100% - 30px);
 `;
 
 export const ContentColumn = styled.section`
