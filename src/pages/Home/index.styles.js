@@ -15,8 +15,8 @@ export const Title = styled.h1`
 
 export const MainDiv = styled.div`
     background-color: #f2f2f2;
-    padding: 30px;
-    height: calc(100% - 60px);
+    padding: 45px;
+    height: calc(100% - 90px);
 
 `;
 

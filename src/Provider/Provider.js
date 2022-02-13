@@ -16,11 +16,21 @@ const defaultCurrentOptions = {
   'Tipos de indexação': { value: 'PÓS' },
 };
 
+const resultSimulate = {
+  valorFinalBruto: { value: 'Valor Final Bruto' },
+  aliquotaIR: { value: 'Alíquota do IR' },
+  valorPagoIR: { value: 'Valor Pago em IR' },
+  valorTotalInvestido: { value: 'Valor Total Investido' },
+  valorFinalLiquido: { value: 'Valor Final Líquido' },
+  ganhoLiquido: { value: 'Ganho Líquido' },
+};
+
 const Provider = ({ children }) => {
   const [form, setForm] = useState(defaultForm);
   const [currentOptions, setCurrentOptions] = useState(defaultCurrentOptions);
   const [isValid, setIsValid] = useState(false);
-  const [simulateResults, setSimulateResults] = useState([]);
+  const [simulateResults, setSimulateResults] = useState({});
+  const [graphResults, setGraphResults] = useState({});
 
   useEffect(() => {
     // this useEffect will be listening to form values to check if they're not empty
@@ -96,8 +106,22 @@ const Provider = ({ children }) => {
     const indexacao = treatsStringtoApi(currentOptions['Tipos de indexação'].value);
     const rendimento = treatsStringtoApi(currentOptions.Rendimento.value);
     const data = await getAllSimulators(indexacao, rendimento);
+    const keys = Object.keys(data[0]);
+
+    keys.splice(0, 2);
+    keys.forEach((e) => {
+      console.log(resultSimulate[e], 'eu', e);
+      if (e !== 'graficoValores') {
+        return setSimulateResults((prevState) => ({
+          ...prevState,
+          [resultSimulate[e].value]: data[0][e],
+        }));
+      }
+      return setGraphResults({ [e]: data[0][e] });
+    });
+
     console.log('data', data[0]);
-    setSimulateResults(data);
+    // setSimulateResults(data);
   };
 
   useEffect(() => {
