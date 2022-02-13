@@ -7,26 +7,19 @@ const customTextField = styled(Input)({
   multiline: true,
   id: 'standard-textarea',
   marginTop: '8px',
-
 });
 
-const SectionButton = styled(Button)({
+const SectionButton = styled(Button)((props) => ({
+  color: props.myColor,
   '&:hover': {
     backgroundColor: '#e59400',
+    color: 'white',
   },
-  color: 'black',
   borderColor: 'black',
+  background: props.myBackGround,
   height: '35px',
   fontSize: '12px',
-});
-const SectionButtonSelected = styled(Button)({
-  backgroundColor: '#e59400',
-  color: 'white',
-  borderColor: 'black',
-  height: '35px',
-  fontSize: '12px',
-
-});
+}));
 
 const SimulateButton = styled(Button)({
   '&:hover': {
@@ -40,6 +33,11 @@ const SimulateButton = styled(Button)({
   boxShadow: 'none',
   borderStyle: 'solid',
   backgroundColor: '#e59400',
+  ':disabled': {
+    color: 'black',
+    backgroundColor: 'rgba(0, 0, 0, 0.30)',
+    border: 'none',
+  },
 });
 
 const CleanFieldsButtons = styled(Button)({
@@ -56,5 +54,5 @@ const CleanFieldsButtons = styled(Button)({
 });
 
 export {
-  customTextField, SimulateButton, CleanFieldsButtons, SectionButton, SectionButtonSelected,
+  customTextField, SimulateButton, CleanFieldsButtons, SectionButton,
 };

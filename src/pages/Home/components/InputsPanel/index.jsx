@@ -7,57 +7,27 @@ import Input from '@mui/material/Input';
 import CheckIcon from '@mui/icons-material/Check';
 import simulateData from '../../../../helpers/simulateData/simulateData';
 import {
-  customTextField, SimulateButton, CleanFieldsButtons, SectionButton, SectionButtonSelected,
+  SimulateButton, CleanFieldsButtons, SectionButton,
 } from './muiStyled/muiStyled';
 import Context from '../../../../Provider/Context';
+import NumberFormatInput from './atoms/NumberFormatInput';
 
 import * as S from './index.styles';
 
-const defaultCurrentOptions = {
-  Rendimento: { value: 'Bruto' },
-  'Tipos de indexação': { value: 'PÓS' },
-
-};
-
 const InputsPanel = () => {
-  const { form, handleChange, clearState } = useContext(Context);
-  const [currentOptions, setCurrentOptions] = useState(defaultCurrentOptions);
+  const {
+    form, clearState, currentOptions, isDisable, handleClick,
+  } = useContext(Context);
 
   const renderInputs = (e) => {
     if (form[e].type === 'currency') {
       return (
-        <NumberFormat
-          customInput={customTextField}
-          variant="outlined"
-          onChange={(event) => handleChange(event, e)}
-          autoComplete="off"
-          prefix="R$ "
-          thousandSeparator="."
-          decimalSeparator=","
-          decimalScale={2}
-          name={e}
-          className="fields"
-          value={form[e].value}
-
-        />
+        <NumberFormatInput e={e} type="currency" />
       );
     }
     if (form[e].type === 'percentage') {
       return (
-        <NumberFormat
-          className="fields"
-          customInput={customTextField}
-          variant="outlined"
-          onValueChange={(values) => handleChange(values, e)}
-          isAllowed={(values) => {
-            const { value } = values;
-            return Number(value) >= 0 && Number(value) <= 100;
-          }}
-          suffix="%"
-          decimalScale={form[e].value >= 100 ? 0 : 2}
-          decimalSeparator=","
-          value={form[e].value}
-        />
+        <NumberFormatInput e={e} type="percentage" />
       );
     }
     return (
@@ -74,16 +44,6 @@ const InputsPanel = () => {
     );
   };
 
-  const handleClick = ({ target: { value, name } }) => {
-    console.log('entrei', value);
-    return setCurrentOptions((prevState) => ({
-      ...prevState,
-      [name]: {
-        ...prevState[name],
-        value,
-      },
-    }));
-  };
   const renderForms = () => {
     return simulateData.map((el, i) => {
       return (
@@ -95,21 +55,22 @@ const InputsPanel = () => {
             {el.inputText.map((e, index) => {
               if (currentOptions[el.title].value === e) {
                 return (
-                  <SectionButtonSelected
+                  <SectionButton
                     variant="outlined"
                     startIcon={<CheckIcon sx={{ color: 'white', fontSize: '17px', margin: 0 }} />}
                     name={el.title}
                     value={e}
                     onClick={handleClick}
                     key={index}
+                    myColor="white"
+                    myBackGround="#e59400"
                   >
                     {e}
-
-                  </SectionButtonSelected>
+                  </SectionButton>
                 );
               }
               return (
-                <SectionButton variant="outlined" name={el.title} value={e} onClick={handleClick} key={index}>{e}</SectionButton>
+                <SectionButton myColor="black" myBackGround="none" variant="outlined" name={el.title} value={e} onClick={handleClick} key={index}>{e}</SectionButton>
               );
             })}
           </S.ButtonsSection>
@@ -143,6 +104,7 @@ const InputsPanel = () => {
         <SimulateButton
           size="large"
           variant="contained"
+          disabled={isDisable}
         >
           <strong>Simular</strong>
         </SimulateButton>

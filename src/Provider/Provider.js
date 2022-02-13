@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import Context from './Context';
 import { getAllIndicators } from '../services/api';
 
@@ -11,16 +11,35 @@ const defaultForm = {
   'IPCA(ao ano)': { value: 0, type: 'disabled' },
 };
 
+const defaultCurrentOptions = {
+  Rendimento: { value: 'Bruto' },
+  'Tipos de indexação': { value: 'PÓS' },
+};
+
 const Provider = ({ children }) => {
   const [form, setForm] = useState(defaultForm);
+  const [currentOptions, setCurrentOptions] = useState(defaultCurrentOptions);
+  const [isDisable, setIsDisable] = useState(true);
+
+  useEffect(() => {
+    // this useEffect will be listening to form values to check if they're not empty
+    // and if all values not empty it will update is disable state to true
+    const keys = Object.keys(form);
+    const check = keys.every((e) => {
+      return form[e].value;
+    });
+    if (check === true) {
+      return setIsDisable(false);
+    }
+    return setIsDisable(true);
+  }, [form]);
 
   const handleChange = (e, name) => {
-    // this function change inputs value on state
     if (form[name].type === 'currency') {
       return setForm((prevState) => ({
         ...prevState,
         [name]: {
-
+          ...prevState[name],
           value: e.target.value,
         },
       }));
@@ -59,6 +78,15 @@ const Provider = ({ children }) => {
     });
   };
 
+  const handleClick = ({ target: { value, name } }) => {
+    return setCurrentOptions((prevState) => ({
+      ...prevState,
+      [name]: {
+        ...prevState[name],
+        value,
+      },
+    }));
+  };
   useEffect(() => {
     fetchIndicators();
   }, []);
@@ -68,6 +96,10 @@ const Provider = ({ children }) => {
     setForm,
     handleChange,
     clearState,
+    currentOptions,
+    setCurrentOptions,
+    isDisable,
+    handleClick,
   };
 
   return <Context.Provider value={context}>{children}</Context.Provider>;

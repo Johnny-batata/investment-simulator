@@ -8,7 +8,7 @@ export const ContentDiv = styled.div`
 export const Columns = styled.div`
     display: flex;
     flex-direction: column;
-    width: 45%;
+    width: 40%;
 
 
 `;
