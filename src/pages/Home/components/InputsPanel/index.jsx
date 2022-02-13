@@ -1,8 +1,7 @@
 /* eslint-disable radix */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useContext } from 'react';
-import NumberFormat from 'react-number-format';
+import React, { useContext } from 'react';
 import Input from '@mui/material/Input';
 import CheckIcon from '@mui/icons-material/Check';
 import simulateData from '../../../../helpers/simulateData/simulateData';
@@ -16,7 +15,7 @@ import * as S from './index.styles';
 
 const InputsPanel = () => {
   const {
-    form, clearState, currentOptions, isDisable, handleClick,
+    form, clearState, currentOptions, isValid, handleClick, simulateClick,
   } = useContext(Context);
 
   const renderInputs = (e) => {
@@ -62,15 +61,26 @@ const InputsPanel = () => {
                     value={e}
                     onClick={handleClick}
                     key={index}
-                    myColor="white"
-                    myBackGround="#e59400"
+                    mycolor="white"
+                    mybackground="#e59400"
                   >
                     {e}
                   </SectionButton>
                 );
               }
               return (
-                <SectionButton myColor="black" myBackGround="none" variant="outlined" name={el.title} value={e} onClick={handleClick} key={index}>{e}</SectionButton>
+                <SectionButton
+                  mycolor="black"
+                  mybackground="none"
+                  variant="outlined"
+                  name={el.title}
+                  value={e}
+                  onClick={handleClick}
+                  key={index}
+                >
+                  {e}
+
+                </SectionButton>
               );
             })}
           </S.ButtonsSection>
@@ -88,7 +98,7 @@ const InputsPanel = () => {
   };
 
   return (
-    <div style={{ height: 'calc(100% - 37px)', width: '35%' }}>
+    <div style={{ height: 'calc(100% - 37px)', width: '40%' }}>
       <h2>Simulador</h2>
       <S.ContentDiv style={{ marginBottom: '10px' }}>
         { renderForms()}
@@ -104,7 +114,8 @@ const InputsPanel = () => {
         <SimulateButton
           size="large"
           variant="contained"
-          disabled={isDisable}
+          disabled={!isValid}
+          onClick={simulateClick}
         >
           <strong>Simular</strong>
         </SimulateButton>

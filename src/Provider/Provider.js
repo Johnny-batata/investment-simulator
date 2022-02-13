@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Context from './Context';
-import { getAllIndicators } from '../services/api';
+import { getAllIndicators, getAllSimulators } from '../services/api';
 
 const defaultForm = {
   'Aporte mensal': { value: '', type: 'currency' },
@@ -19,19 +19,18 @@ const defaultCurrentOptions = {
 const Provider = ({ children }) => {
   const [form, setForm] = useState(defaultForm);
   const [currentOptions, setCurrentOptions] = useState(defaultCurrentOptions);
-  const [isDisable, setIsDisable] = useState(true);
+  const [isValid, setIsValid] = useState(false);
+  const [simulateResults, setSimulateResults] = useState([]);
 
   useEffect(() => {
     // this useEffect will be listening to form values to check if they're not empty
-    // and if all values not empty it will update is disable state to true
+    // and if all values not empty it will update isValid state to true
     const keys = Object.keys(form);
-    const check = keys.every((e) => {
-      return form[e].value;
-    });
+    const check = keys.every((e) => form[e].value);
     if (check === true) {
-      return setIsDisable(false);
+      return setIsValid(true);
     }
-    return setIsDisable(true);
+    return setIsValid(false);
   }, [form]);
 
   const handleChange = (e, name) => {
@@ -87,6 +86,20 @@ const Provider = ({ children }) => {
       },
     }));
   };
+
+  const treatsStringtoApi = (string) => {
+    const word = string.toLowerCase().replace('ó', 'o').replace('é', 'e').replace('í', 'i');
+    return word;
+  };
+
+  const simulateClick = async() => {
+    const indexacao = treatsStringtoApi(currentOptions['Tipos de indexação'].value);
+    const rendimento = treatsStringtoApi(currentOptions.Rendimento.value);
+    const data = await getAllSimulators(indexacao, rendimento);
+    console.log('data', data[0]);
+    setSimulateResults(data);
+  };
+
   useEffect(() => {
     fetchIndicators();
   }, []);
@@ -98,8 +111,10 @@ const Provider = ({ children }) => {
     clearState,
     currentOptions,
     setCurrentOptions,
-    isDisable,
+    isValid,
     handleClick,
+    simulateClick,
+    simulateResults,
   };
 
   return <Context.Provider value={context}>{children}</Context.Provider>;

@@ -10,22 +10,24 @@ const customTextField = styled(Input)({
 });
 
 const SectionButton = styled(Button)((props) => ({
-  color: props.myColor,
+  color: props.mycolor,
   '&:hover': {
     backgroundColor: '#e59400',
     color: 'white',
   },
   borderColor: 'black',
-  background: props.myBackGround,
+  background: props.mybackground,
   height: '35px',
   fontSize: '12px',
+  minWidth: '15px',
+
 }));
 
 const SimulateButton = styled(Button)({
   '&:hover': {
     backgroundColor: '#e59400',
   },
-  width: '45%',
+  width: '48%',
   color: 'black',
   borderWidth: 'thin',
 
@@ -44,7 +46,7 @@ const CleanFieldsButtons = styled(Button)({
   '&:hover': {
     backgroundColor: 'red',
   },
-  width: '45%',
+  width: '48%',
   color: 'black',
   borderWidth: 'thin',
   borderColor: 'black',

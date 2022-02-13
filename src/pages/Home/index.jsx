@@ -1,5 +1,6 @@
 import React from 'react';
 import InputsPanel from './components/InputsPanel/index';
+import ResultsPanel from './components/ResultsPanel';
 import * as S from './index.styles';
 
 const Home = () => {
@@ -9,11 +10,7 @@ const Home = () => {
         <S.Title>Simulador de Investimentos</S.Title>
         <S.ContentDiv>
           <InputsPanel />
-          <S.ContentColumn>
-            <p>
-              queijin
-            </p>
-          </S.ContentColumn>
+          <ResultsPanel />
         </S.ContentDiv>
       </S.MainDiv>
     </S.Wrapper>

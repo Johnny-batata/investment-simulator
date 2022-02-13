@@ -16,8 +16,8 @@ const getAllIndicators = () => {
   return responses;
 };
 
-const getAllSimulators = () => {
-  const endpoint = 'http://localhost:3001/simulacoes';
+const getAllSimulators = (indexacao, rendimento) => {
+  const endpoint = `http://localhost:3001/simulacoes?tipoIndexacao=${indexacao}&tipoRendimento=${rendimento}`;
   const responses = fetch(endpoint, {
     method: 'GET',
     headers: {

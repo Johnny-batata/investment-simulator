@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ContentDiv = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 export const Columns = styled.div`

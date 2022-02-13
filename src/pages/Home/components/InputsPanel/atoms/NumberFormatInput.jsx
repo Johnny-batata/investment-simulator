@@ -5,7 +5,7 @@ import { customTextField } from '../muiStyled/muiStyled';
 
 const NumberFormatInput = ({ type, e }) => {
   const {
-    form, handleChange, clearState, currentOptions, errors, handleClick,
+    form, handleChange,
   } = useContext(Context);
   const checkType = () => {
     if (type === 'currency') {
