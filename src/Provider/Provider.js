@@ -30,7 +30,7 @@ const Provider = ({ children }) => {
   const [currentOptions, setCurrentOptions] = useState(defaultCurrentOptions);
   const [isValid, setIsValid] = useState(false);
   const [simulateResults, setSimulateResults] = useState({});
-  const [graphResults, setGraphResults] = useState({});
+  const [graphResults, setGraphResults] = useState([]);
 
   useEffect(() => {
     // this useEffect will be listening to form values to check if they're not empty
@@ -101,6 +101,29 @@ const Provider = ({ children }) => {
     const word = string.toLowerCase().replace('ó', 'o').replace('é', 'e').replace('í', 'i');
     return word;
   };
+  const handleGraphState = (data, e) => {
+    // console.log('teste', data, e, data[0].graficoValores.comAporte);
+    const graphData = [];
+    const graphKeys = Object.keys(data[0].graficoValores);
+    const optionsKeys = Object.keys(data[0].graficoValores.comAporte);
+    graphKeys.forEach((el) => {
+      optionsKeys.forEach((option) => {
+        const index = graphData.findIndex((element) => element.value === option);
+        // console.log(index, 'index');
+        if (index >= 0) {
+          // console.log('entrei', graphData[index]);
+          // eslint-disable-next-line no-return-assign
+          graphData[index][`${el}Color`] = 'black';
+          // eslint-disable-next-line no-return-assign
+          return graphData[index][el] = data[0][e][el][option];
+        }
+
+        return graphData.push({ value: option, [el]: data[0][e][el][option], [`${el}Color`]: '#e59400' });
+      });
+    });
+    // console.log(graphData, 'graph data');
+    return setGraphResults(graphData);
+  };
 
   const simulateClick = async() => {
     const indexacao = treatsStringtoApi(currentOptions['Tipos de indexação'].value);
@@ -109,18 +132,35 @@ const Provider = ({ children }) => {
     const keys = Object.keys(data[0]);
 
     keys.splice(0, 2);
+    // const graphData = [];
+    // const graphKeys = Object.keys(data[0].graficoValores);
+    // const optionsKeys = Object.keys(data[0].graficoValores.comAporte);
     keys.forEach((e) => {
-      console.log(resultSimulate[e], 'eu', e);
+      // console.log(data[0][e], 'eu', e);
       if (e !== 'graficoValores') {
         return setSimulateResults((prevState) => ({
           ...prevState,
           [resultSimulate[e].value]: data[0][e],
         }));
       }
-      return setGraphResults({ [e]: data[0][e] });
+      return handleGraphState(data, e);
+      // graphKeys.forEach((el) => {
+      //   console.log(data[0][e][el], 'options');
+      //   optionsKeys.forEach((option) => {
+      //     const index = graphData.findIndex((element) =>  element.value === option);
+      //     console.log(index, 'index');
+      //     if (index >= 0) {
+      //       console.log('entrei', graphData[index]);
+      //       // eslint-disable-next-line no-return-assign
+      //       return graphData[index][el] = data[0][e][el][option];
+      //     }
+
+      //     return graphData.push({ value: option, [el]: data[0][e][el][option] });
+      //   });
+      // });
+      // return setGraphResults([{ [e]: data[0][e] }]);
     });
 
-    console.log('data', data[0]);
     // setSimulateResults(data);
   };
 
@@ -139,6 +179,7 @@ const Provider = ({ children }) => {
     handleClick,
     simulateClick,
     simulateResults,
+    graphResults,
   };
 
   return <Context.Provider value={context}>{children}</Context.Provider>;

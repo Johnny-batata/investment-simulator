@@ -6,7 +6,7 @@ const customTextField = styled(Input)({
   variant: 'standard',
   multiline: true,
   id: 'standard-textarea',
-  marginTop: '8px',
+  marginTop: '15px',
 });
 
 const SectionButton = styled(Button)((props) => ({
@@ -17,7 +17,7 @@ const SectionButton = styled(Button)((props) => ({
   },
   borderColor: 'black',
   background: props.mybackground,
-  height: '35px',
+  height: '42px !important',
   fontSize: '12px',
   minWidth: '15px',
 
@@ -30,7 +30,7 @@ const SimulateButton = styled(Button)({
   width: '48%',
   color: 'black',
   borderWidth: 'thin',
-
+  height: '55px !important',
   borderColor: '#e59400',
   boxShadow: 'none',
   borderStyle: 'solid',

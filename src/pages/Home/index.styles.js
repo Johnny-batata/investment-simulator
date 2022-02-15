@@ -5,6 +5,14 @@ export const Wrapper = styled.main`
   height: calc(100% - 70px);
 `;
 
+export const ResultsWrapper = styled.div`
+    height: calc(100% - 37px);
+  display: flex;
+    flex-direction: column;
+    width: calc(100% - 100px);
+    margin-left: 100px;
+  `;
+
 export const Title = styled.h1`
   padding: 0;
   margin: 0;

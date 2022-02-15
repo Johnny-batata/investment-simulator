@@ -6,8 +6,8 @@ export const ResultCard = styled.div`
   flex-direction: column;
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   padding: 10px;
-  min-width: 250px;
-  height: 60px;
+  min-width: 180px;
+  height: 55px;
   /* margin-left: 45px; */
   margin-bottom: 45px;
   margin-right:0;
@@ -20,21 +20,14 @@ strong {
 }
   `;
 
-export const Wrapper = styled.div`
-  justify-content: flex-end;
-
-  display: flex;
-    flex-direction: column;
-    width: calc(100% - 85px);
-    margin-left: 85px;
-  `;
-
 export const ResultCardSections = styled.section`
   display: flex;
+  /* padding-left: 40px; */
+  /* padding-right: 40px; */
   flex-wrap: wrap;
   flex-basis: 30%;
   width: 100%;
-  margin-top: 32px;
+  margin-top: 35px;
   justify-content: space-between;
     width: auto;
 
