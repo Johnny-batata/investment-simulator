@@ -21,8 +21,9 @@ const Home = () => {
           <InputsPanel />
           <S.ResultsWrapper>
             <ResultsPanel />
-            {/* <section style={{ height: '474px' }}> */}
-            <section style={{ height: '59%' }}>
+            {/* <section style={{ height: '59%', width: 'calc(100% - 15px)' }}> */}
+            {/* <section style={{ height: '59%', width: '1000px' }}> */}
+            <section style={{ height: '50%', width: '100%' }}>
               {graphResults.length > 0 && (
                 <Graph
                   newdata={graphResults}

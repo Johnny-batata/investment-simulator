@@ -17,12 +17,12 @@ const defaultCurrentOptions = {
 };
 
 const resultSimulate = {
-  valorFinalBruto: { value: 'Valor Final Bruto' },
-  aliquotaIR: { value: 'Alíquota do IR' },
-  valorPagoIR: { value: 'Valor Pago em IR' },
-  valorTotalInvestido: { value: 'Valor Total Investido' },
-  valorFinalLiquido: { value: 'Valor Final Líquido' },
-  ganhoLiquido: { value: 'Ganho Líquido' },
+  valorFinalBruto: { value: 'Valor Final Bruto', color: 'black' },
+  aliquotaIR: { value: 'Alíquota do IR', color: 'black' },
+  valorPagoIR: { value: 'Valor Pago em IR', color: 'black' },
+  valorTotalInvestido: { value: 'Valor Total Investido', color: 'black' },
+  valorFinalLiquido: { value: 'Valor Final Líquido', color: 'green' },
+  ganhoLiquido: { value: 'Ganho Líquido', color: 'green' },
 };
 
 const Provider = ({ children }) => {
@@ -102,16 +102,13 @@ const Provider = ({ children }) => {
     return word;
   };
   const handleGraphState = (data, e) => {
-    // console.log('teste', data, e, data[0].graficoValores.comAporte);
     const graphData = [];
     const graphKeys = Object.keys(data[0].graficoValores);
     const optionsKeys = Object.keys(data[0].graficoValores.comAporte);
     graphKeys.forEach((el) => {
       optionsKeys.forEach((option) => {
         const index = graphData.findIndex((element) => element.value === option);
-        // console.log(index, 'index');
         if (index >= 0) {
-          // console.log('entrei', graphData[index]);
           // eslint-disable-next-line no-return-assign
           graphData[index][`${el}Color`] = 'black';
           // eslint-disable-next-line no-return-assign
@@ -121,7 +118,6 @@ const Provider = ({ children }) => {
         return graphData.push({ value: option, [el]: data[0][e][el][option], [`${el}Color`]: '#e59400' });
       });
     });
-    // console.log(graphData, 'graph data');
     return setGraphResults(graphData);
   };
 
@@ -132,11 +128,8 @@ const Provider = ({ children }) => {
     const keys = Object.keys(data[0]);
 
     keys.splice(0, 2);
-    // const graphData = [];
-    // const graphKeys = Object.keys(data[0].graficoValores);
-    // const optionsKeys = Object.keys(data[0].graficoValores.comAporte);
+
     keys.forEach((e) => {
-      // console.log(data[0][e], 'eu', e);
       if (e !== 'graficoValores') {
         return setSimulateResults((prevState) => ({
           ...prevState,
@@ -144,24 +137,7 @@ const Provider = ({ children }) => {
         }));
       }
       return handleGraphState(data, e);
-      // graphKeys.forEach((el) => {
-      //   console.log(data[0][e][el], 'options');
-      //   optionsKeys.forEach((option) => {
-      //     const index = graphData.findIndex((element) =>  element.value === option);
-      //     console.log(index, 'index');
-      //     if (index >= 0) {
-      //       console.log('entrei', graphData[index]);
-      //       // eslint-disable-next-line no-return-assign
-      //       return graphData[index][el] = data[0][e][el][option];
-      //     }
-
-      //     return graphData.push({ value: option, [el]: data[0][e][el][option] });
-      //   });
-      // });
-      // return setGraphResults([{ [e]: data[0][e] }]);
     });
-
-    // setSimulateResults(data);
   };
 
   useEffect(() => {

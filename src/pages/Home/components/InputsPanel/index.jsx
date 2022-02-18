@@ -98,7 +98,7 @@ const InputsPanel = () => {
   };
 
   return (
-    <div style={{ height: 'calc(100% - 37px)', width: '68%' }}>
+    <div style={{ height: 'calc(100% - 37px)', width: '40%' }}>
       <h2>Simulador</h2>
       <S.ContentDiv style={{ marginBottom: '10px' }}>
         { renderForms()}

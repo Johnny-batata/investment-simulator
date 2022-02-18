@@ -17,7 +17,8 @@ const Graph = ({ newdata, keys }) => {
       keys={keys}
       indexBy="value"
       margin={{
-        top: 0, right: 0, bottom: 70, left: 0,
+        // top: 0, right: 25, bottom: 70, left: 15,
+        top: 0, right: 0, bottom: 70, left: 23,
       }}
       enableGridY={false}
       padding={0.3}
@@ -64,12 +65,15 @@ const Graph = ({ newdata, keys }) => {
         legendOffset: 32,
       }}
       axisLeft={{
-        tickSize: 5,
-        tickPadding: 5,
+        tickSize: 0,
+        tickPadding: 0,
         tickRotation: 0,
-        legend: 'food',
+        legend: 'Valor(R$)',
         legendPosition: 'middle',
-        legendOffset: -40,
+        legendOffset: 8,
+        format: () => '',
+
+        // legendOffset: -40,
       }}
       labelSkipWidth={12}
       labelSkipHeight={12}
@@ -88,7 +92,7 @@ const Graph = ({ newdata, keys }) => {
           anchor: 'bottom-right',
           direction: 'row',
           justify: false,
-          translateX: -360,
+          translateX: -210,
           translateY: 64,
           itemsSpacing: 35,
           itemWidth: 100,

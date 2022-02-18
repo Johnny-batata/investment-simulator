@@ -9,6 +9,7 @@ export const Columns = styled.div`
     display: flex;
     flex-direction: column;
     width: 40%;
+    height: calc(100% - 70px);
 
 
 `;
@@ -19,8 +20,10 @@ export const Label = styled.label`
     .MuiInputAdornment-root {
       display: ${(props) => props.display};
     }
-    margin-top: 35px;
-    margin-bottom: 35px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /* margin-top: 35px; */
+    /* margin-bottom: 35px; */
 
     .fields {
       display: flex !important;

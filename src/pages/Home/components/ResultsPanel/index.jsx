@@ -6,16 +6,18 @@ import * as S from './index.styles';
 const ResultsPanel = () => {
   const { simulateResults, graphResults } = useContext(Context);
   const typeCheck = (e) => {
+    console.log('color', simulateResults[e]);
+
     const check = e === 'Alíquota do IR';
     if (check) {
       return (
-        <p>
+        <p style={{ color: simulateResults[e].color }}>
           {`${simulateResults[e]}%`}
         </p>
       );
     }
     return (
-      <p>{simulateResults[e].toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
+      <p style={{ color: simulateResults[e].color }}>{simulateResults[e].toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
 
     );
   };

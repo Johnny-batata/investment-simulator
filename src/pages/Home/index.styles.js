@@ -9,8 +9,9 @@ export const ResultsWrapper = styled.div`
     height: calc(100% - 37px);
   display: flex;
     flex-direction: column;
-    width: calc(100% - 100px);
-    margin-left: 100px;
+    /* width: calc(100% - 165px); */
+    width: calc(100% - 500px);
+    margin-left: 55px;
   `;
 
 export const Title = styled.h1`
@@ -18,7 +19,8 @@ export const Title = styled.h1`
   margin: 0;
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
+  margin-bottom: 10px;
 `;
 
 export const MainDiv = styled.div`
