@@ -10,7 +10,9 @@ const Home = () => {
   const renderKeys = () => {
     const allKeys = Object.keys(graphResults[0]);
     const rightKeys = ['comAporte', 'semAporte'];
-    return allKeys.filter((e) => rightKeys.includes(e));
+    const keys = allKeys.filter((e) => rightKeys.includes(e));
+    console.log(keys, 'keys', keys.reverse());
+    return keys;
   };
 
   return (
@@ -21,16 +23,14 @@ const Home = () => {
           <InputsPanel />
           <S.ResultsWrapper>
             <ResultsPanel />
-            {/* <section style={{ height: '59%', width: 'calc(100% - 15px)' }}> */}
-            {/* <section style={{ height: '59%', width: '1000px' }}> */}
-            <section style={{ height: '50%', width: '100%' }}>
+            <S.GraphSection>
               {graphResults.length > 0 && (
                 <Graph
                   newdata={graphResults}
                   keys={renderKeys()}
                 />
               )}
-            </section>
+            </S.GraphSection>
           </S.ResultsWrapper>
         </S.ContentDiv>
       </S.MainDiv>

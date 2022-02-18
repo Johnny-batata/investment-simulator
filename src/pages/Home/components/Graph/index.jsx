@@ -8,17 +8,14 @@ import Context from '../../../../Provider/Context';
 const Graph = ({ newdata, keys }) => {
   const { graphResults } = useContext(Context);
 
-  console.log('keys', keys);
-  console.log('data', newdata);
-
   const renderGraph = () => (
     <ResponsiveBar
       data={newdata}
       keys={keys}
       indexBy="value"
       margin={{
-        // top: 0, right: 25, bottom: 70, left: 15,
-        top: 0, right: 0, bottom: 70, left: 23,
+        // top: 0, right: 0, bottom: 70, left: 23,
+        top: 0, right: 0, bottom: 70, left: 35,
       }}
       enableGridY={false}
       padding={0.3}

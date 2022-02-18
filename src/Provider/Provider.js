@@ -103,21 +103,23 @@ const Provider = ({ children }) => {
   };
   const handleGraphState = (data, e) => {
     const graphData = [];
-    const graphKeys = Object.keys(data[0].graficoValores);
+    const graphKeys = Object.keys(data[0].graficoValores).reverse();
     const optionsKeys = Object.keys(data[0].graficoValores.comAporte);
     graphKeys.forEach((el) => {
-      optionsKeys.forEach((option) => {
+      optionsKeys.forEach((option, i) => {
         const index = graphData.findIndex((element) => element.value === option);
+        console.log(i, graphData, 'sapin');
         if (index >= 0) {
           // eslint-disable-next-line no-return-assign
-          graphData[index][`${el}Color`] = 'black';
+          graphData[index][`${el}Color`] = '#e59400';
           // eslint-disable-next-line no-return-assign
           return graphData[index][el] = data[0][e][el][option];
         }
 
-        return graphData.push({ value: option, [el]: data[0][e][el][option], [`${el}Color`]: '#e59400' });
+        return graphData.push({ value: option, [el]: data[0][e][el][option], [`${el}Color`]: 'black' });
       });
     });
+    console.log('graph', graphKeys);
     return setGraphResults(graphData);
   };
 
@@ -133,7 +135,9 @@ const Provider = ({ children }) => {
       if (e !== 'graficoValores') {
         return setSimulateResults((prevState) => ({
           ...prevState,
-          [resultSimulate[e].value]: data[0][e],
+          [resultSimulate[e].value]: {
+            value: data[0][e], color: resultSimulate[e].color,
+          },
         }));
       }
       return handleGraphState(data, e);

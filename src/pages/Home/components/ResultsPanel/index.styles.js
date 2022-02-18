@@ -8,17 +8,14 @@ export const ResultCard = styled.div`
   padding: 10px;
   /* min-width: 180px; */
   /* min-width: 265px; */
-  /* height: 55px; */
-  /* margin-left: 45px; */
-  min-width: 168px;
-  
-  margin-left: 33px;
-  height: 46px;
-  margin-bottom: 33px;
+  height: 55px;
+  margin-left: 45px;
+  margin-bottom: 45px;
+ 
   margin-right:0;
   align-items: center;
   /* width: calc(33.33% - 90px); */
-  width: calc(33.33% - 90px);
+  width: calc(33.33% - 65px);
 
 
 strong {
@@ -47,5 +44,17 @@ export const ResultCardSections = styled.section`
 
 export const Title = styled.h2`
   margin-left: 63px;
-  
+`;
+
+export const Wrapper = styled.div`
+  width: 100%;
+
+  @media( max-height: 850px) {
+    ${ResultCard} {
+      min-width: 168px;
+      margin-left: 33px;
+      height: 46px;
+      margin-bottom: 33px;
+    }
+  }
 `;

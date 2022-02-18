@@ -6,18 +6,16 @@ import * as S from './index.styles';
 const ResultsPanel = () => {
   const { simulateResults, graphResults } = useContext(Context);
   const typeCheck = (e) => {
-    console.log('color', simulateResults[e]);
-
     const check = e === 'Alíquota do IR';
     if (check) {
       return (
         <p style={{ color: simulateResults[e].color }}>
-          {`${simulateResults[e]}%`}
+          {`${simulateResults[e].value}%`}
         </p>
       );
     }
     return (
-      <p style={{ color: simulateResults[e].color }}>{simulateResults[e].toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
+      <p style={{ color: simulateResults[e].color }}>{simulateResults[e].value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
 
     );
   };
@@ -25,7 +23,7 @@ const ResultsPanel = () => {
   const renderResults = () => {
     const keys = Object.keys(simulateResults);
     return (
-      <div style={{ width: '100%' }}>
+      <S.Wrapper>
         <S.Title>Resultado da Simulação</S.Title>
         <S.ResultCardSections>
           {keys.map((e) => {
@@ -37,7 +35,7 @@ const ResultsPanel = () => {
             );
           })}
         </S.ResultCardSections>
-      </div>
+      </S.Wrapper>
 
     );
   };

@@ -1,16 +1,12 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.main`
-  padding: 35px;
-  height: calc(100% - 70px);
-`;
-
 export const ResultsWrapper = styled.div`
     height: calc(100% - 37px);
   display: flex;
     flex-direction: column;
     /* width: calc(100% - 165px); */
-    width: calc(100% - 500px);
+    /* width: calc(100% - 500px); */
+    width: 60%;
     margin-left: 55px;
   `;
 
@@ -19,14 +15,7 @@ export const Title = styled.h1`
   margin: 0;
   display: flex;
   justify-content: center;
-  /* margin-bottom: 30px; */
-  margin-bottom: 10px;
-`;
-
-export const MainDiv = styled.div`
-    background-color: #f2f2f2;
-    padding: 45px;
-    height: calc(100% - 90px);
+  margin-bottom: 55px;
 
 `;
 
@@ -37,4 +26,32 @@ export const ContentDiv = styled.div`
 
 export const ContentColumn = styled.section`
   width: 60%;
+`;
+
+export const GraphSection = styled.section`
+  height: 50%;
+`;
+
+export const MainDiv = styled.div`
+    background-color: #f2f2f2;
+    padding: 45px;
+    height: calc(100% - 90px);
+    @media (max-height: 800px) {
+      ${Title} {
+      margin-bottom: 10px;
+      }
+  }
+`;
+
+export const Wrapper = styled.main`
+  padding: 35px;
+  height: calc(100% - 70px);
+
+  @media( max-height: 850px) {
+    ${ResultsWrapper} {
+      margin-left: 55px;
+
+    }
+    }
+
 `;
