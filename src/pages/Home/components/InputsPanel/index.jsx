@@ -98,8 +98,8 @@ const InputsPanel = () => {
   };
 
   return (
-    <div style={{ height: 'calc(100% - 37px)', width: '40%' }}>
-      <h2>Simulador</h2>
+    <S.MainDiv>
+      <S.Title>Simulador</S.Title>
       <S.ContentDiv style={{ marginBottom: '10px' }}>
         { renderForms()}
       </S.ContentDiv>
@@ -120,7 +120,7 @@ const InputsPanel = () => {
           <strong>Simular</strong>
         </SimulateButton>
       </S.ContentDiv>
-    </div>
+    </S.MainDiv>
   );
 };
 

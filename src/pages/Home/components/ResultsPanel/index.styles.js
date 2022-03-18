@@ -51,10 +51,10 @@ export const Wrapper = styled.div`
 
   @media( max-height: 850px) {
     ${ResultCard} {
-      min-width: 168px;
       margin-left: 33px;
       height: 46px;
       margin-bottom: 33px;
+      width: calc(33.33% - 55px);
     }
   }
 `;

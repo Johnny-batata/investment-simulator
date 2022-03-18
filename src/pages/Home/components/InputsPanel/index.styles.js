@@ -14,7 +14,6 @@ export const Label = styled.label`
     .MuiInputAdornment-root {
       display: ${(props) => props.display};
     }
-  
     margin-top: 35px;
     margin-bottom: 35px;
 
@@ -34,7 +33,7 @@ export const ButtonsSection = styled.section`
   .btn-sec {
     height: 100%;
     width: 100%;
-    color: 'black'  !important,
+    color: 'black'  !important;
   }
   .MuiButton-startIcon, .MuiSvgIcon-root  {
     color: 'white';
@@ -44,7 +43,7 @@ export const ButtonsSection = styled.section`
   button {
     height: 100%;
     width: 100%;
-    color: 'black'  !important,
+    color: 'black'  !important;
 
     }
 `;
@@ -63,7 +62,6 @@ font: inherit;
     display: block;
     min-width: 0;
     width: 100%;
-
     text-rendering: auto;
     text-transform: none;
     text-indent: 0px;
@@ -75,16 +73,68 @@ font: inherit;
 
 `;
 
-export const MainDiv = styled.div`
+export const Title = styled.h2`
+  /* margin: 20px; */
+
+  @media(max-height: 700px) {
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  }
 `;
 
 export const ContentDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  @media( max-height: 850px) {
-    ${Label} {
-      margin-top: 10px;
-      margin-bottom: 10px;
+
+`;
+
+export const MainDiv = styled.div`
+  height: calc(100% - 37px); 
+  width: 40%;
+
+  @media(max-height: 700px) {
+
+${Label} {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  div {
+    margin: 0;
+  }
+}
+
+@media( max-width: 1201px) {
+p {
+  margin-top: 5px;
+  margin-bottom: 5px;
     }
-    }
+${Label} {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  div {
+    margin: 0;
+  }
+}
+${Columns} {
+  width: 45%
+}
+
+}
+}
+
+@media( max-width: 1201px) {
+  width: 100%;
+
+  ${ContentDiv} {
+    width: 100%;
+  }
+
+${Label} {
+  /* margin-top: 20px; */
+  /* margin-bottom: 20px; */
+  div {
+    margin: 0;
+  }
+}
+}
 `;
